@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Rock Paper Scissors</title>
+  <style>
+    .playbuttons {
+      color: white;
+      display: block;
+    }
+    
+  </style>
+</head>
+<body>
+
+
+  <script>
+    let playerScore = 0;
+    let compScore = 0;
+
+    // Computer choice.
+    function cpuPlay() {
+      return ["rock", "paper", "scissors"][Math.floor(Math.random() * 3)];
+    }
+
+    function playRound(playerSelection, computerSelection) {
+      if (playerSelection === computerSelection) {
+        return document.getElementById('roundresults').innerHTML = "Tie! Try again!";
+      }
+      if (playerSelection === "rock" && computerSelection == "paper") {
+        compScore++;
+        return document.getElementById('roundresults').innerHTML = "You Lose! Paper covers Rock!";
+      }
+      if (playerSelection === "rock" && computerSelection == "scissors") {
+        playerScore++;
+        return document.getElementById('roundresults').innerHTML = "You Win! Rock crushes Scissors!";
+      }
+      if (playerSelection === "paper" && computerSelection == "rock") {
+        playerScore++;
+        return document.getElementById('roundresults').innerHTML = "Paper wraps Rock! You win!";
+      }
+      if (playerSelection === "paper" && computerSelection == "scissors") {
+        compScore++;
+        return document.getElementById('roundresults').innerHTML = "Scissors cuts Paper! You lost!";
+      }
+      if (playerSelection === "scissors" && computerSelection == "rock") {
+        compScore++;
+        return document.getElementById('roundresults').innerHTML = "You Lose! Rock crushes Scissors!";
+      }
+      if (playerSelection === "scissors" && computerSelection == "paper") {
+        playerScore++;
+        return document.getElementById('roundresults').innerHTML = "You Win! Scissors cuts Paper!";
+      }
+  }
+  function winCondition () {
+    let runningScore = document.getElementById("scorekeeper");
+      if (playerScore === 5) {
+        runningScore.innerHTML = `You WIN! Your Score: ${playerScore} Computer Score: ${compScore}`;
+        document.getElementById("rockbutton").style.display = "none";
+        document.getElementById("paperbutton").style.display = "none";
+        document.getElementById("scissorsbutton").style.display = "none";
+        body.appendChild(resetBtn);
+      } else if (compScore === 5) {
+        runningScore.innerHTML = `You lost the game! :( Your Score: ${playerScore} Computer Score: ${compScore}`;
+        document.getElementById("rockbutton").style.display = "none";
+        document.getElementById("paperbutton").style.display = "none";
+        document.getElementById("scissorsbutton").style.display = "none";
+        body.appendChild(resetBtn);
+      } else {
+        runningScore.innerHTML = `Your Score: ${playerScore} Computer Score: ${compScore}`;
+      }
+    }
+    function btnFunc (choice){
+      playerSelection = choice;
+      const computerSelection = cpuPlay();
+      playRound(choice, computerSelection);
+      winCondition();
+    }
+  function resetButton () {
+    playerScore = 0;
+    compScore = 0;
+    document.getElementById('roundresults').innerHTML = "Results";
+    document.getElementById("rockbutton").removeAttribute("style");
+    document.getElementById("paperbutton").removeAttribute("style");
+    document.getElementById("scissorsbutton").removeAttribute("style");
+    body.removeChild(resetBtn);
+    document.getElementById("scorekeeper").innerHTML = `Your Score: ${playerScore} Computer Score: ${compScore}`;
+  }
+  let playerSelection = ""
+
+  let body = document.querySelector('body');
+
+  const paperBtn = document.createElement("button");
+  paperBtn.textContent = "PAPER"
+  paperBtn.setAttribute("id", "paperbutton");
+  paperBtn.addEventListener('click', function() {
+    btnFunc("paper");
+  });
+  body.appendChild(paperBtn);
+
+  const rockBtn = document.createElement("button");
+  rockBtn.textContent = "ROCK";
+  rockBtn.setAttribute("id", "rockbutton");
+  rockBtn.addEventListener('click', function() {
+    btnFunc("rock");
+  });
+  body.appendChild(rockBtn);
+
+  const scissorsBtn = document.createElement("button");
+  scissorsBtn.textContent = 'SCISSORS';
+  scissorsBtn.setAttribute("id", "scissorsbutton");
+  scissorsBtn.addEventListener('click', function() {
+    btnFunc("scissors");
+  });
+  body.appendChild(scissorsBtn);
+
+  const resetBtn = document.createElement("button");
+  resetBtn.textContent = 'Play Again';
+  resetBtn.setAttribute("id", "resetbutton");
+  resetBtn.addEventListener('click', function() {
+    resetButton();
+  });
+
+  let roundResultDiv = document.createElement("div");
+  roundResultDiv.setAttribute("id", "roundresults");
+  roundResultDiv.textContent = "Results";
+  body.appendChild(roundResultDiv);
+
+  let scoreKeeperDiv = document.createElement("div");
+  scoreKeeperDiv.setAttribute("id", "scorekeeper");
+  scoreKeeperDiv.textContent = `Your Score: 0 Computer Score: 0`;
+  body.appendChild(scoreKeeperDiv); 
+  
+
+  </script>
+</body>
+</html>

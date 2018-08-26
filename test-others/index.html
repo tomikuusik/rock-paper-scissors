@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Page Title</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+<body>
+    <script>
+        function computerPlay () {
+            let r = Math.random();
+            let play;
+
+            if (r <= 0.333) {
+                play = "rock";
+            }else if (r <= 0.666) {
+                play = "paper";
+            }else{
+                play = "scissors";
+            }
+
+            return play;
+        }
+
+        function playRound (playerSelection, computerSelection) {
+            playerSelection = playerSelection.toLowerCase();
+
+            if (playerSelection == computerSelection) {
+                return "The Game is a TIE";
+            }
+
+            if (playerSelection == "rock") {
+                if (computerSelection == "scissors") {
+                    return "Player WINS!";
+                }else{
+                    return "Computer WINS";
+                }
+            }else if (playerSelection == "paper") {
+                if (computerSelection == "scissors") {
+                    return "Computer WINS";
+                }else{
+                    return "Player WINS!";
+                }
+            }else{
+                if (computerSelection == "paper") {
+                    return "Player WINS!";
+                }else{
+                    return "Computer WINS";
+                }
+            }
+        }
+
+        function game () {
+            let ties = 0;
+            let pWins = 0;
+            let cWins = 0;
+
+            for (let i = 0; i < 5; i++) {
+                let result = playRound(prompt("Rock, Paper, or Scissors?"), computerPlay());
+
+                if (result == "Player WINS!") {
+                    pWins ++;
+                }else if (result == "Computer WINS") {
+                    cWins ++;
+                }else{
+                    ties ++;
+                }
+
+                console.log(result);
+            }
+
+            console.log(cWins + " " + pWins + " " + ties);
+
+            if (cWins > pWins) {
+                return "COMPUTER WINS! YOU WILL BE ASSIMILATED!";
+            }else if (pWins > cWins) {
+                return "PLAYER WINS!";
+            }else{
+                return "THE GAME IS A TIE!";
+            }
+        }
+
+        console.log(game());
+    </script>
+</body>
+</html>
